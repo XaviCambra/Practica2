@@ -218,9 +218,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 3505316964899952658}
-  m_OtherPortalTransform: {fileID: 3721044588462212367}
+  m_OtherPortalTransform: {fileID: 4364265822644301797}
   m_MirrorPortal: {fileID: 2141156175871667935, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
   m_Player: {fileID: 0}
+  m_OffsetNearPlane: 1
 --- !u!1 &4597032407750479403
 GameObject:
   m_ObjectHideFlags: 0
