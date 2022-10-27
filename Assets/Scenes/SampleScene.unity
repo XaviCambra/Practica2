@@ -1046,6 +1046,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f16a2f9fe98e17f418e1948cb19674cc, type: 2}
+    - target: {fileID: 3505316964899952658, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 83be02a0272f0d94e8c22dff01029ae6, type: 2}
     - target: {fileID: 3721044588462212367, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1098,6 +1102,10 @@ PrefabInstance:
       propertyPath: m_MirrorPortal
       value: 
       objectReference: {fileID: 1506314578}
+    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_OffsetNearPlane
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!4 &1715969237 stripped
@@ -1200,10 +1208,6 @@ PrefabInstance:
       propertyPath: m_MirrorPortal
       value: 
       objectReference: {fileID: 1876486131}
-    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
-      propertyPath: m_OffsetNearPlane
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!1 &2034419101
