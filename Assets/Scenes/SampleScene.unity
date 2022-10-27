@@ -560,6 +560,17 @@ Transform:
   m_Father: {fileID: 1300701554}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &795095662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2141156175871667935, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
+  m_PrefabInstance: {fileID: 6606943641296496998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e652e8b3846887d43af1867d708967a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &919478781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4460366370564002, guid: f22c6b28664f53d45a7182c78eb84eba, type: 3}
@@ -980,11 +991,6 @@ MonoBehaviour:
   m_CharacterController: {fileID: 1300701556}
   m_Speed: 6
   m_FastSpeedMultiplier: 1.5
-  m_Camera: {fileID: 0}
-  m_NormalMovementFOV: 60
-  m_RunMovementFOV: 80
-  m_VerticalSpeed: 0
-  m_JumpSpeed: 4
   m_LeftKeyCode: 97
   m_RightKeyCode: 100
   m_UpKeyCode: 119
@@ -998,6 +1004,11 @@ MonoBehaviour:
   m_ShootingLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  m_Camera: {fileID: 963194227}
+  m_NormalMovementFOV: 60
+  m_RunMovementFOV: 80
+  m_VerticalSpeed: 0
+  m_JumpSpeed: 4
 --- !u!143 &1300701556
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1016,6 +1027,17 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1506314578 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+  m_PrefabInstance: {fileID: 1981509664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e652e8b3846887d43af1867d708967a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1715969237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4116259839626626, guid: c21252cbe01eccd4a967b728d0b09f5a, type: 3}
@@ -1097,6 +1119,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_Player
+      value: 
+      objectReference: {fileID: 1300701555}
+    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_MirrorPortal
+      value: 
+      objectReference: {fileID: 795095662}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!1 &2034419101
@@ -1137,6 +1167,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2141156175871667935, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
+      propertyPath: m_Player
+      value: 
+      objectReference: {fileID: 1300701555}
+    - target: {fileID: 2141156175871667935, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
+      propertyPath: m_MirrorPortal
+      value: 
+      objectReference: {fileID: 1506314578}
     - target: {fileID: 5879302066278858480, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
       propertyPath: near clip plane
       value: 1
