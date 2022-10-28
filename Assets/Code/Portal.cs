@@ -15,10 +15,11 @@ public class Portal : MonoBehaviour
     public float m_MaxValidDistance = 0.3f;
     public float m_MinDotValidAngle;
 
+
     private void LateUpdate()
     {
         Vector3 l_WorldPosition = m_Player.m_Camera.transform.position;
-        Vector3 l_LocalPosition = transform.InverseTransformPoint(l_WorldPosition);
+        Vector3 l_LocalPosition = m_OtherPortalTransform.InverseTransformPoint(l_WorldPosition);
         m_MirrorPortal.m_Camera.transform.position = m_MirrorPortal.transform.TransformPoint(l_LocalPosition);
 
         Vector3 l_WorldDirection = m_Player.m_Camera.transform.forward;
@@ -33,12 +34,15 @@ public class Portal : MonoBehaviour
     {
         Ray l_Ray=new Ray(StartPosition,Forward);
         RaycastHit l_RaycastHit;
+        bool l_Valid = false;
+        Position = Vector3.zero;
         if(Physics.Raycast(l_Ray, out l_RaycastHit, MaxDistance, PortalLayerMask.value))
         {
             if (l_RaycastHit.collider.tag == "DrawableWall")
             {
                 Vector3 l_Normal = l_RaycastHit.normal;
                 Vector3 l_Position = l_RaycastHit.point;
+    
 
                 for(int i = 0; i < m_ValidPoints.Count; i++)
                 {
@@ -54,7 +58,7 @@ public class Portal : MonoBehaviour
                             float l_DotAngle = Vector3.Dot(l_Normal, l_RaycastHit.normal);
                             if (l_Distance >= m_MinValidDistance && l_DotAngle > m_MinDotValidAngle)
                             {
-
+                                
                             }
 
                         }
