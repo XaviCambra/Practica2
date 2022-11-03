@@ -73,6 +73,7 @@ public class FPPlayerController : MonoBehaviour
     Quaternion m_AttachingObjectStartRotation;
     public float m_MaxDistanceToAttachObject = 10.0f;
     public LayerMask m_AttachingObjectLayerMask;
+    public float m_AttachedObjectThrowForce = 75.0f;
 
     //[Header("Animations")]
     //public Animation m_Animation;
@@ -215,14 +216,29 @@ public class FPPlayerController : MonoBehaviour
         {
             AttachObject();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (m_ObjectAttached)
         {
-            Shoot(m_BluePortal);
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowAttachedObject(m_AttachedObjectThrowForce);
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                ThrowAttachedObject(0.0f);
+            }
         }
-        if (Input.GetMouseButtonDown(1))
+        else if(!m_AttachingObject)
         {
-            Shoot(m_OrangePortal);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot(m_BluePortal);
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                Shoot(m_OrangePortal);
+            }
         }
+        
 
         if (m_AttachingObject)
         {
@@ -270,6 +286,18 @@ public class FPPlayerController : MonoBehaviour
         m_CharacterController.enabled = true;
     }
 
+    void ThrowAttachedObject(float Force)
+    {
+        if (m_ObjectAttached != null)
+        {
+            m_ObjectAttached.transform.SetParent(null);
+            m_ObjectAttached.isKinematic = false;
+            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
+            m_ObjectAttached.GetComponent<Companion>().SetAttached(false);
+            m_ObjectAttached = null;
+        }
+    }
+
     void UpdateAttachedObject()
     {
         Vector3 l_EulerAngles = m_AttachingPosition.rotation.eulerAngles;
@@ -306,6 +334,7 @@ public class FPPlayerController : MonoBehaviour
             {
                 m_AttachingObject = true;
                 m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+                m_ObjectAttached.GetComponent<Companion>().SetAttached(true);
                 m_ObjectAttached.isKinematic = true;
                 m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
 
@@ -313,7 +342,7 @@ public class FPPlayerController : MonoBehaviour
         }
     }
 
-
+    
 
 
 
