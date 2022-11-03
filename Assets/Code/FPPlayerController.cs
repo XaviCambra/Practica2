@@ -34,6 +34,7 @@ public class FPPlayerController : MonoBehaviour
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
     public KeyCode m_ReloadKeyCode;
+    public KeyCode m_AttachObjectKeyCode;
     bool m_AngleLocked = false;
     bool m_AimLocked = true;
     
@@ -57,7 +58,22 @@ public class FPPlayerController : MonoBehaviour
 
     public float m_JumpSpeed = 10.0f;
     bool m_Shooting = false;
-    
+
+    public float m_OffsetPortal = 1.5f;
+
+    public Vector3 m_Direction;
+    [Range (0.0f, 60.0f)] float m_AngleToEnterPortalInDegrees;
+
+
+    [Header ("AttachingObject")]
+    public Transform m_AttachingPosition;
+    Rigidbody m_ObjectAttached;
+    bool m_AttachingObject = false;
+    public float m_AttachingObjectSpeed = 3.0f;
+    Quaternion m_AttachingObjectStartRotation;
+    public float m_MaxDistanceToAttachObject = 10.0f;
+    public LayerMask m_AttachingObjectLayerMask;
+
     //[Header("Animations")]
     //public Animation m_Animation;
     //public AnimationClip m_IdleAnimationClip;
@@ -113,7 +129,7 @@ public class FPPlayerController : MonoBehaviour
 #endif
         Vector3 l_RightDirection = transform.right;
         Vector3 l_ForwardDirection = transform.forward;
-        Vector3 l_Direction = Vector3.zero;
+        m_Direction = Vector3.zero;
         float l_Speed = m_Speed;
         //SetIdleWeaponAnimation();
         float l_MouseX = Input.GetAxis("Mouse X");
@@ -128,22 +144,22 @@ public class FPPlayerController : MonoBehaviour
 
         if (Input.GetKey(m_UpKeyCode))
         {
-            l_Direction = l_ForwardDirection;
+            m_Direction = l_ForwardDirection;
             //SetWalkAnimation();
         }
         if (Input.GetKey(m_DownKeyCode))
         {
-            l_Direction = -l_ForwardDirection;
+            m_Direction = -l_ForwardDirection;
             //SetWalkAnimation();
         }
         if (Input.GetKey(m_RightKeyCode))
         {
-            l_Direction += l_RightDirection;
+            m_Direction += l_RightDirection;
             //SetWalkAnimation();
         }
         if (Input.GetKey(m_LeftKeyCode))
         {
-            l_Direction -= l_RightDirection;
+            m_Direction -= l_RightDirection;
             //SetWalkAnimation();
         }
         if (Input.GetKey(m_JumpKeyCode) && m_OnGround)
@@ -164,8 +180,8 @@ public class FPPlayerController : MonoBehaviour
 
         
         
-        l_Direction.Normalize();
-        Vector3 l_Movement = l_Direction * m_Speed * Time.deltaTime;
+        m_Direction.Normalize();
+        Vector3 l_Movement = m_Direction * m_Speed * Time.deltaTime;
 
         m_Yaw = m_Yaw + l_MouseX * m_YawRotationalSpeed*Time.deltaTime*(m_UseYawInverted ? -1.0f : 1.0f);
         m_Pitch = m_Pitch + l_MouseY * m_PitchRotationalSpeed * Time.deltaTime * (m_UsePitchInverted ? -1.0f : 1.0f);
@@ -195,6 +211,10 @@ public class FPPlayerController : MonoBehaviour
             m_OnGround = false;
         }
 
+        if (Input.GetKeyDown(m_AttachObjectKeyCode) && CanAttachObject())
+        {
+            AttachObject();
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Shoot(m_BluePortal);
@@ -204,16 +224,15 @@ public class FPPlayerController : MonoBehaviour
             Shoot(m_OrangePortal);
         }
 
-    }
-
-    
-    bool CanShoot()
-    {
-        return !m_Shooting;
+        if (m_AttachingObject)
+        {
+            UpdateAttachedObject();
+        }
     }
 
     void Shoot(Portal _Portal)
     {
+        Debug.Log("entra");
         Vector3 l_Position;
         Vector3 l_Normal;
         if(_Portal.isValidPosition(m_Camera.transform.position, m_Camera.transform.forward, m_MaxShootDistance, m_ShootingLayerMask, out l_Position, out l_Normal))
@@ -225,6 +244,88 @@ public class FPPlayerController : MonoBehaviour
             _Portal.gameObject.SetActive(false);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Portal")
+        {
+            Portal l_Portal = other.GetComponent<Portal>();
+            if(Vector3.Dot(l_Portal.transform.forward, -m_Direction)>Mathf.Cos(m_AngleToEnterPortalInDegrees*Mathf.Deg2Rad))
+                Teleport(l_Portal);
+        }
+    }
+
+    void Teleport(Portal _Portal)
+    {
+        Vector3 l_LocalPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(transform.position);
+        Vector3 l_LocalDirection = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(transform.forward);
+        Vector3 l_LocalDirectionMovement = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(m_Direction);
+        Vector3 l_WorldDirectionMovement = _Portal.m_MirrorPortal.transform.TransformDirection(l_LocalDirectionMovement);
+
+
+        m_CharacterController.enabled = false;
+        transform.forward=_Portal.m_MirrorPortal.transform.TransformDirection(l_LocalDirection);
+        m_Yaw=transform.rotation.eulerAngles.y;
+        transform.position = _Portal.m_MirrorPortal.transform.TransformPoint(l_LocalPosition)+l_WorldDirectionMovement*m_OffsetPortal;
+        m_CharacterController.enabled = true;
+    }
+
+    void UpdateAttachedObject()
+    {
+        Vector3 l_EulerAngles = m_AttachingPosition.rotation.eulerAngles;
+        Vector3 l_Direction = m_AttachingPosition.transform.position - m_ObjectAttached.transform.position;
+        float l_Distance = l_Direction.magnitude;
+        float l_Movement = m_AttachingObjectSpeed * Time.deltaTime;
+        if (l_Movement >= l_Distance)
+        {
+            m_AttachingObject = false;
+            m_ObjectAttached.transform.SetParent(m_AttachingPosition);
+            m_ObjectAttached.transform.localPosition = Vector3.zero;
+            m_ObjectAttached.transform.localRotation=Quaternion.identity;
+        }
+        else
+        {
+            l_Direction /= l_Distance;
+            m_ObjectAttached.MovePosition(m_ObjectAttached.transform.position + l_Direction * l_Movement);
+            m_ObjectAttached.MoveRotation(Quaternion.Lerp(m_AttachingObjectStartRotation, Quaternion.Euler(0.0f, l_EulerAngles.y, l_EulerAngles.z), 1.0f - Mathf.Min(l_Distance / 1.5f, 1.0f)));
+        }
+    }
+
+    bool CanAttachObject()
+    {
+        return m_ObjectAttached == null;
+    }
+
+    void AttachObject()
+    {
+        Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+        RaycastHit l_Raycasthit;
+        if (Physics.Raycast(l_Ray, out l_Raycasthit, m_MaxDistanceToAttachObject, m_AttachingObjectLayerMask.value))
+        {
+            if (l_Raycasthit.collider.tag == "CompanionCube")
+            {
+                m_AttachingObject = true;
+                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+                m_ObjectAttached.isKinematic = true;
+                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
+
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    //bool CanShoot()
+    //{
+    //    return !m_Shooting;
+    //}
+
+    
 
     //void SetIdleWeaponAnimation()
     //{
@@ -301,4 +402,6 @@ public class FPPlayerController : MonoBehaviour
         //m_ShieldBarImage.fillAmount = m_Shield / 100;
         //m_ShieldText.text = m_Shield.ToString();
     }
+
+    
 }
