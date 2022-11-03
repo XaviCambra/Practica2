@@ -21,6 +21,9 @@ public class FPPlayerController : MonoBehaviour
     public float m_Speed;
     public float m_FastSpeedMultiplier = 1.5f;
 
+    public Portal m_BluePortal;
+    public Portal m_OrangePortal;
+
     [Header("Key controls")]
     public KeyCode m_LeftKeyCode;
     public KeyCode m_RightKeyCode;
@@ -81,6 +84,8 @@ public class FPPlayerController : MonoBehaviour
         //SetIdleWeaponAnimation();
         m_StartPosition = transform.position;
         m_StartRotation = transform.rotation;
+        m_BluePortal.gameObject.SetActive(false);
+        m_OrangePortal.gameObject.SetActive(false);
     }
 
     #if UNITY_EDITOR
@@ -157,10 +162,7 @@ public class FPPlayerController : MonoBehaviour
         }
         m_Camera.fieldOfView = l_FOV;
 
-        //if (Input.GetKeyDown(m_ReloadKeyCode))
-        //{
-        //    Reload();
-        //}
+        
         
         l_Direction.Normalize();
         Vector3 l_Movement = l_Direction * m_Speed * Time.deltaTime;
@@ -193,8 +195,14 @@ public class FPPlayerController : MonoBehaviour
             m_OnGround = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && CanShoot())
-            Shoot();
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot(m_BluePortal);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Shoot(m_OrangePortal);
+        }
 
     }
 
@@ -204,48 +212,18 @@ public class FPPlayerController : MonoBehaviour
         return !m_Shooting;
     }
 
-    void Shoot()
+    void Shoot(Portal _Portal)
     {
-        Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        RaycastHit l_RaycastHit;
-        if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_ShootingLayerMask.value) && !m_Shooting)
+        Vector3 l_Position;
+        Vector3 l_Normal;
+        if(_Portal.isValidPosition(m_Camera.transform.position, m_Camera.transform.forward, m_MaxShootDistance, m_ShootingLayerMask, out l_Position, out l_Normal))
         {
-            if (l_RaycastHit.collider.tag == "DroneCollider")
-            {
-                //l_RaycastHit.collider.GetComponent<HitCollider>().Hit(5);
-            }
-            else if (l_RaycastHit.collider.tag == "GalleryDummy")
-            {
-                //l_RaycastHit.collider.GetComponent<DummyHP>().Hit(50);
-            }
-
-            //SetShootWeaponAnimation();
+            _Portal.gameObject.SetActive(true);
         }
-
-        //if (m_AmmoInGun != 0)
-        //{
-        //    Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        //    RaycastHit l_RaycastHit;
-        //    if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_ShootingLayerMask.value) && !m_Shooting)
-        //    {
-        //        if (l_RaycastHit.collider.tag == "DroneCollider")
-        //        {
-        //            //l_RaycastHit.collider.GetComponent<HitCollider>().Hit(5);
-        //        }
-        //        else if (l_RaycastHit.collider.tag == "GalleryDummy")
-        //        {
-        //            //l_RaycastHit.collider.GetComponent<DummyHP>().Hit(50);
-        //        }
-                
-        //        SetShootWeaponAnimation();
-        //    }
-        //    UpdateAmmoCounter();
-        //    if (m_AmmoInGun == 0)
-        //    {
-        //        m_Reloading = true;
-        //        Reload();
-        //    }
-        //}
+        else
+        {
+            _Portal.gameObject.SetActive(false);
+        }
     }
 
     //void SetIdleWeaponAnimation()

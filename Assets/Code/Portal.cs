@@ -30,18 +30,22 @@ public class Portal : MonoBehaviour
         m_MirrorPortal.m_Camera.nearClipPlane = l_Distance + m_OffsetNearPlane;
     }
 
-    public bool isValidPosition(Vector3 StartPosition, Vector3 Forward, float MaxDistance, LayerMask PortalLayerMask)
+    public bool isValidPosition(Vector3 StartPosition, Vector3 Forward, float MaxDistance, LayerMask PortalLayerMask, out Vector3 Position, out Vector3 Normal)
     {
         Ray l_Ray=new Ray(StartPosition,Forward);
         RaycastHit l_RaycastHit;
         bool l_Valid = false;
         Position = Vector3.zero;
+        Normal = Vector3.forward;
         if(Physics.Raycast(l_Ray, out l_RaycastHit, MaxDistance, PortalLayerMask.value))
         {
             if (l_RaycastHit.collider.tag == "DrawableWall")
             {
-                Vector3 l_Normal = l_RaycastHit.normal;
-                Vector3 l_Position = l_RaycastHit.point;
+                l_Valid = true;
+                Position = l_RaycastHit.point;
+                Normal = l_RaycastHit.normal;
+                transform.position = Position;
+                transform.rotation = Quaternion.LookRotation(Normal);
     
 
                 for(int i = 0; i < m_ValidPoints.Count; i++)
@@ -54,19 +58,27 @@ public class Portal : MonoBehaviour
                     {
                         if (l_RaycastHit.collider.tag == "DrawableWall")
                         {
-                            float l_Distance = Vector3.Distance(l_Position, l_RaycastHit.point);
-                            float l_DotAngle = Vector3.Dot(l_Normal, l_RaycastHit.normal);
-                            if (l_Distance >= m_MinValidDistance && l_DotAngle > m_MinDotValidAngle)
+                            float l_Distance = Vector3.Distance(Position, l_RaycastHit.point);
+                            float l_DotAngle = Vector3.Dot(Normal, l_RaycastHit.normal);
+                            if (l_Distance >= m_MinValidDistance && l_Distance <= m_MaxValidDistance &&l_DotAngle > m_MinDotValidAngle)
                             {
-                                
+                                l_Valid = false;
                             }
 
                         }
+                        else
+                        {
+                            l_Valid = false;
+                        }
+                    }
+                    else
+                    {
+                        l_Valid = false;
                     }
                 }
             }
         }
         
-        return false;
+        return l_Valid;
     }
 }
