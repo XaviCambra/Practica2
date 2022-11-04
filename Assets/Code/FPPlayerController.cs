@@ -33,10 +33,8 @@ public class FPPlayerController : MonoBehaviour
     public KeyCode m_RunKeyCode = KeyCode.LeftShift;
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
-    public KeyCode m_ReloadKeyCode;
     public KeyCode m_AttachObjectKeyCode;
     bool m_AngleLocked = false;
-    bool m_AimLocked = true;
     
 
     [Header("Shoot")]
@@ -248,9 +246,9 @@ public class FPPlayerController : MonoBehaviour
 
     void Shoot(Portal _Portal)
     {
-        Debug.Log("entra");
         Vector3 l_Position;
         Vector3 l_Normal;
+        //Debug.Log(_Portal.isValidPosition(m_Camera.transform.position, m_Camera.transform.forward, m_MaxShootDistance, m_ShootingLayerMask, out l_Position, out l_Normal));
         if(_Portal.isValidPosition(m_Camera.transform.position, m_Camera.transform.forward, m_MaxShootDistance, m_ShootingLayerMask, out l_Position, out l_Normal))
         {
             _Portal.gameObject.SetActive(true);
@@ -328,6 +326,7 @@ public class FPPlayerController : MonoBehaviour
     {
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit l_Raycasthit;
+        Debug.Log(Physics.Raycast(l_Ray, out l_Raycasthit, m_MaxDistanceToAttachObject, m_AttachingObjectLayerMask.value));
         if (Physics.Raycast(l_Ray, out l_Raycasthit, m_MaxDistanceToAttachObject, m_AttachingObjectLayerMask.value))
         {
             if (l_Raycasthit.collider.tag == "CompanionCube")
