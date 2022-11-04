@@ -35,7 +35,8 @@ public class FPPlayerController : MonoBehaviour
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
     public KeyCode m_AttachObjectKeyCode;
     bool m_AngleLocked = false;
-    
+    bool m_AimLocked = true;
+
 
     [Header("Shoot")]
     public float m_MaxShootDistance = 50.0f;
