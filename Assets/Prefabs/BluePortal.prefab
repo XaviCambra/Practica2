@@ -309,7 +309,7 @@ MonoBehaviour:
   - {fileID: 774929043531342696}
   m_MinValidDistance: 0.2
   m_MaxValidDistance: 0.3
-  m_MinDotValidAngle: 0
+  m_MinDotValidAngle: 0.75
 --- !u!1 &4597032407750479403
 GameObject:
   m_ObjectHideFlags: 0
