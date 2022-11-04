@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 2228806445716030287}
   - component: {fileID: 5415410671481864610}
   - component: {fileID: 2771591889067018393}
-  - component: {fileID: 782638323206764992}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -87,8 +86,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410125083588632710}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.015}
-  m_LocalScale: {x: 1.5, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
+  m_LocalScale: {x: 1.5552, y: 2.2285, z: 1}
   m_Children: []
   m_Father: {fileID: 3721044588462212367}
   m_RootOrder: 1
@@ -142,20 +141,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &782638323206764992
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1410125083588632710}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1523130269812271862
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,8 +297,16 @@ MonoBehaviour:
   m_OtherPortalTransform: {fileID: 4364265822644301797}
   m_MirrorPortal: {fileID: 2141156175871667935, guid: 16d898027e428c54ab5ab7537f548b65, type: 3}
   m_Player: {fileID: 0}
-  m_OffsetNearPlane: 0
-  m_ValidPoints: []
+  m_OffsetNearPlane: 0.5
+  m_ValidPoints:
+  - {fileID: 2337292885197419232}
+  - {fileID: 539692562355517428}
+  - {fileID: 5647835565240543078}
+  - {fileID: 4710535612897417977}
+  - {fileID: 2739515365847352498}
+  - {fileID: 262678284049072003}
+  - {fileID: 3718246375528522935}
+  - {fileID: 774929043531342696}
   m_MinValidDistance: 0.2
   m_MaxValidDistance: 0.3
   m_MinDotValidAngle: 0
