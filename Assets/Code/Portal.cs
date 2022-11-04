@@ -13,12 +13,13 @@ public class Portal : MonoBehaviour
     public List<Transform> m_ValidPoints;
     public float m_MinValidDistance = 0.2f;
     public float m_MaxValidDistance = 0.3f;
-    public float m_MinDotValidAngle = 0.0f;
+    public float m_MinDotValidAngle;
+
 
     private void LateUpdate()
     {
         Vector3 l_WorldPosition = m_Player.m_Camera.transform.position;
-        Vector3 l_LocalPosition = transform.InverseTransformPoint(l_WorldPosition);
+        Vector3 l_LocalPosition = m_OtherPortalTransform.InverseTransformPoint(l_WorldPosition);
         m_MirrorPortal.m_Camera.transform.position = m_MirrorPortal.transform.TransformPoint(l_LocalPosition);
 
         Vector3 l_WorldDirection = m_Player.m_Camera.transform.forward;
@@ -29,22 +30,23 @@ public class Portal : MonoBehaviour
         m_MirrorPortal.m_Camera.nearClipPlane = l_Distance + m_OffsetNearPlane;
     }
 
-    public bool isValidPosition(Vector3 StartPosition, Vector3 Forward, float MaxDistance, LayerMask PortalLayerMask,
-        out Vector3 Position, out Vector3 Normal)
+    public bool isValidPosition(Vector3 StartPosition, Vector3 Forward, float MaxDistance, LayerMask PortalLayerMask, out Vector3 Position, out Vector3 Normal)
     {
         Ray l_Ray=new Ray(StartPosition,Forward);
         RaycastHit l_RaycastHit;
         bool l_Valid = false;
         Position = Vector3.zero;
         Normal = Vector3.forward;
-
         if(Physics.Raycast(l_Ray, out l_RaycastHit, MaxDistance, PortalLayerMask.value))
         {
-            if (l_RaycastHit.collider.tag.Equals("DrawableWall"))
+            if (l_RaycastHit.collider.tag == "DrawableWall")
             {
                 l_Valid = true;
                 Position = l_RaycastHit.point;
                 Normal = l_RaycastHit.normal;
+                transform.position = Position;
+                transform.rotation = Quaternion.LookRotation(Normal);
+    
 
                 for(int i = 0; i < m_ValidPoints.Count; i++)
                 {
@@ -54,19 +56,25 @@ public class Portal : MonoBehaviour
 
                     if (Physics.Raycast(l_Ray, out l_RaycastHit, MaxDistance, PortalLayerMask.value))
                     {
-                        if (l_RaycastHit.collider.tag.Equals("DrawableWall"))
+                        if (l_RaycastHit.collider.tag == "DrawableWall")
                         {
                             float l_Distance = Vector3.Distance(Position, l_RaycastHit.point);
                             float l_DotAngle = Vector3.Dot(Normal, l_RaycastHit.normal);
-                            if (l_Distance >= m_MinValidDistance && l_Distance <= m_MaxValidDistance && l_DotAngle > m_MinDotValidAngle)
+                            if (l_Distance >= m_MinValidDistance && l_Distance <= m_MaxValidDistance &&l_DotAngle > m_MinDotValidAngle)
+                            {
                                 l_Valid = false;
+                            }
 
                         }
                         else
+                        {
                             l_Valid = false;
+                        }
                     }
                     else
+                    {
                         l_Valid = false;
+                    }
                 }
             }
         }

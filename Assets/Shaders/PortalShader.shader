@@ -8,7 +8,7 @@ _Cutout("Cutout", Range(0.0, 1.0)) = 0.5
 }
 SubShader
 {
-Tags{ "Queue" = "Geometry " "IgnoreProjector" = "True" "RenderType" = "Opaque" }
+Tags{ "Queue" = "Opaque " "IgnoreProjector" = "True" "RenderType" = "Opaque" }
 Lighting Off
 Cull Back
 ZWrite On
