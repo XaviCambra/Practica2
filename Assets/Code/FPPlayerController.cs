@@ -37,11 +37,6 @@ public class FPPlayerController : MonoBehaviour
     public KeyCode m_AttachObjectKeyCode;
     bool m_AngleLocked = false;
     bool m_AimLocked = true;
-<<<<<<< Updated upstream
-    
-=======
-
->>>>>>> Stashed changes
 
     [Header("Shoot")]
     public float m_MaxShootDistance = 50.0f;
@@ -80,30 +75,12 @@ public class FPPlayerController : MonoBehaviour
     public LayerMask m_AttachingObjectLayerMask;
     public float m_AttachedObjectThrowForce = 75.0f;
 
-    //[Header("Animations")]
-    //public Animation m_Animation;
-    //public AnimationClip m_IdleAnimationClip;
-    //public AnimationClip m_ShootAnimationClip;
-    //public AnimationClip m_ReloadAnimationClip;
-    //public AnimationClip m_WalkAnimationClip;
-    //public AnimationClip m_RunAnimationClip;
-    //public AnimationClip m_JumpAnimationClip;
-
-    //[Header("UI")]
-    //public Image m_LifeBarImage;
-    //public TextMeshProUGUI m_LifeText;
-    //public Image m_ShieldBarImage;
-    //public TextMeshProUGUI m_ShieldText;
-    //public GameObject m_AmmoCount;
-    //public GameObject m_AmmoCountInfo;
-
     void Start()
     {
         m_Yaw = transform.rotation.y;
         m_Pitch = m_PitchController.localRotation.x;
         Cursor.lockState = CursorLockMode.Locked;
         m_AimLocked = Cursor.lockState == CursorLockMode.Locked;
-        //SetIdleWeaponAnimation();
         m_StartPosition = transform.position;
         m_StartRotation = transform.rotation;
         m_BluePortal.gameObject.SetActive(false);
@@ -137,7 +114,6 @@ public class FPPlayerController : MonoBehaviour
         Vector3 l_ForwardDirection = transform.forward;
         m_Direction = Vector3.zero;
         float l_Speed = m_Speed;
-        //SetIdleWeaponAnimation();
         float l_MouseX = Input.GetAxis("Mouse X");
         float l_MouseY = Input.GetAxis("Mouse Y");
 #if UNITY_EDITOR
@@ -151,33 +127,27 @@ public class FPPlayerController : MonoBehaviour
         if (Input.GetKey(m_UpKeyCode))
         {
             m_Direction = l_ForwardDirection;
-            //SetWalkAnimation();
         }
         if (Input.GetKey(m_DownKeyCode))
         {
             m_Direction = -l_ForwardDirection;
-            //SetWalkAnimation();
         }
         if (Input.GetKey(m_RightKeyCode))
         {
             m_Direction += l_RightDirection;
-            //SetWalkAnimation();
         }
         if (Input.GetKey(m_LeftKeyCode))
         {
             m_Direction -= l_RightDirection;
-            //SetWalkAnimation();
         }
         if (Input.GetKey(m_JumpKeyCode) && m_OnGround)
         {
-            //SetJumpAnimation();
             m_VerticalSpeed = m_JumpSpeed;
 
         }
         float l_FOV = m_NormalMovementFOV;
         if (Input.GetKey(m_RunKeyCode))
         {
-            //SetRunAnimation();
             l_Speed = m_Speed*m_FastSpeedMultiplier;
             l_FOV = m_RunMovementFOV;
 
@@ -271,16 +241,13 @@ public class FPPlayerController : MonoBehaviour
         if (other.tag == "Portal")
         {
             Portal l_Portal = other.GetComponent<Portal>();
-            Debug.Log("Ha tocao el portal " + l_Portal);
-            Debug.Log("La condicion de tp es " + (Vector3.Dot(l_Portal.transform.forward, -m_Direction) > Mathf.Cos(m_AngleToEnterPortalInDegrees * Mathf.Deg2Rad)));
-            if(Vector3.Dot(l_Portal.transform.forward, -m_Direction)>Mathf.Cos(m_AngleToEnterPortalInDegrees*Mathf.Deg2Rad))
+            if(Vector3.Dot(l_Portal.transform.forward, -m_Direction) > Mathf.Cos(m_AngleToEnterPortalInDegrees * Mathf.Deg2Rad))
                 Teleport(l_Portal);
         }
     }
 
     void Teleport(Portal _Portal)
     {
-        Debug.Log("Abra kadabra");
         Vector3 l_LocalPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(transform.position);
         Vector3 l_LocalDirection = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(transform.forward);
         Vector3 l_LocalDirectionMovement = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(m_Direction);
