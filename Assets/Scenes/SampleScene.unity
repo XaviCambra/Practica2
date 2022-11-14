@@ -1808,7 +1808,6 @@ MonoBehaviour:
   m_RunKeyCode: 304
   m_DebugLockAngleKeyCode: 105
   m_DebugLockKeyCode: 111
-  m_ReloadKeyCode: 0
   m_AttachObjectKeyCode: 101
   m_MaxShootDistance: 50
   m_ShootingLayerMask:
@@ -1823,7 +1822,7 @@ MonoBehaviour:
   m_Direction: {x: 0, y: 0, z: 0}
   m_AngleToEnterPortalInDegrees: 60
   m_AttachingPosition: {fileID: 995077037}
-  m_AttachingObjectSpeed: 15
+  m_AttachingObjectSpeed: 20
   m_MaxDistanceToAttachObject: 10
   m_AttachingObjectLayerMask:
     serializedVersion: 2
