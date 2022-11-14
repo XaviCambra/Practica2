@@ -7,6 +7,14 @@ public class RefractionCube : MonoBehaviour
     public float m_MaxLaserDistance = 250.0f;
     bool m_RefractionEnabled = false;
 
+    bool m_IsAttached = false;
+    Rigidbody m_Rigidbody;
+
+    private void Start()
+    {
+        m_Rigidbody = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         m_Laser.gameObject.SetActive(m_RefractionEnabled);
@@ -27,5 +35,10 @@ public class RefractionCube : MonoBehaviour
                 l_RayCastHit.collider.GetComponent<RefractionCube>().CreateRefraction();
         }
         m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
+    }
+
+    public void SetAttached(bool Attached)
+    {
+        m_IsAttached = Attached;
     }
 }

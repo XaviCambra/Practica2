@@ -6,6 +6,14 @@ public class Turret : MonoBehaviour
     public LayerMask m_LaserLayerMask;
     public float m_MaxLaserDistance = 250.0f;
     public float m_AliveAngleInDegrees = 30.0f;
+    bool m_IsAttached = false;
+
+    Rigidbody m_Rigidbody;
+
+    private void Start()
+    {
+        m_Rigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
@@ -29,5 +37,9 @@ public class Turret : MonoBehaviour
        
     }
 
+    public void SetAttached(bool Attached)
+    {
+        m_IsAttached = Attached;
+    }
     //hacer los set actives para las diferentes ocasiones
 }

@@ -312,51 +312,26 @@ public class FPPlayerController : MonoBehaviour
                 m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
 
             }
+            if (l_Raycasthit.collider.tag == "turret")
+            {
+                m_AttachingObject = true;
+                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+                m_ObjectAttached.GetComponent<Turret>().SetAttached(true);
+                m_ObjectAttached.isKinematic = true;
+                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
+
+            }
+            if (l_Raycasthit.collider.tag == "RefractionCube")
+            {
+                m_AttachingObject = true;
+                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+                m_ObjectAttached.GetComponent<RefractionCube>().SetAttached(true);
+                m_ObjectAttached.isKinematic = true;
+                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
+
+            }
         }
     }
-
-    
-
-
-
-
-
-
-    //bool CanShoot()
-    //{
-    //    return !m_Shooting;
-    //}
-
-    
-
-    //void SetIdleWeaponAnimation()
-    //{
-    //    m_Animation.CrossFade(m_IdleAnimationClip.name);
-    //}
-
-
-    //void SetShootWeaponAnimation()
-    //{
-    //    m_Animation.CrossFade(m_ShootAnimationClip.name, 0.1f);
-    //    m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
-    //    StartCoroutine(EndShoot());
-    //}
-
-    //void SetWalkAnimation()
-    //{
-    //    m_Animation.CrossFade(m_WalkAnimationClip.name);
-    //}
-
-    //void SetJumpAnimation()
-    //{
-    //    m_Animation.CrossFade(m_JumpAnimationClip.name);
-    //}
-
-    //public IEnumerator EndShoot()
-    //{
-    //    yield return new WaitForSeconds(m_ShootAnimationClip.length);
-    //    m_Shooting = false;
-    //}
 
     public float GetLife()
     {
