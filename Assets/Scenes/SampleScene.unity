@@ -1819,8 +1819,9 @@ MonoBehaviour:
   m_RunMovementFOV: 80
   m_VerticalSpeed: 0
   m_JumpSpeed: 4
-  m_OffsetPortal: 0.4
+  m_OffsetPortal: 2
   m_Direction: {x: 0, y: 0, z: 0}
+  m_AngleToEnterPortalInDegrees: 60
   m_AttachingPosition: {fileID: 995077037}
   m_AttachingObjectSpeed: 15
   m_MaxDistanceToAttachObject: 10
