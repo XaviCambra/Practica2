@@ -269,6 +269,22 @@ public class FPPlayerController : MonoBehaviour
             m_ObjectAttached.GetComponent<Companion>().SetAttached(false);
             m_ObjectAttached = null;
         }
+        if (m_ObjectAttached != null)
+        {
+            m_ObjectAttached.transform.SetParent(null);
+            m_ObjectAttached.isKinematic = false;
+            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
+            m_ObjectAttached.GetComponent<Turret>().SetAttached(false);
+            m_ObjectAttached = null;
+        }
+        if (m_ObjectAttached != null)
+        {
+            m_ObjectAttached.transform.SetParent(null);
+            m_ObjectAttached.isKinematic = false;
+            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
+            m_ObjectAttached.GetComponent<RefractionCube>().SetAttached(false);
+            m_ObjectAttached = null;
+        }
     }
 
     void UpdateAttachedObject()
