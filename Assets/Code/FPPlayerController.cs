@@ -37,7 +37,11 @@ public class FPPlayerController : MonoBehaviour
     public KeyCode m_AttachObjectKeyCode;
     bool m_AngleLocked = false;
     bool m_AimLocked = true;
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
 
     [Header("Shoot")]
     public float m_MaxShootDistance = 50.0f;
@@ -62,7 +66,8 @@ public class FPPlayerController : MonoBehaviour
     public float m_OffsetPortal = 1.5f;
 
     public Vector3 m_Direction;
-    [Range (0.0f, 60.0f)] float m_AngleToEnterPortalInDegrees;
+    [Range (0.0f, 60.0f)]
+    public float m_AngleToEnterPortalInDegrees;
 
 
     [Header ("AttachingObject")]
@@ -266,6 +271,8 @@ public class FPPlayerController : MonoBehaviour
         if (other.tag == "Portal")
         {
             Portal l_Portal = other.GetComponent<Portal>();
+            Debug.Log("Ha tocao el portal " + l_Portal);
+            Debug.Log("La condicion de tp es " + (Vector3.Dot(l_Portal.transform.forward, -m_Direction) > Mathf.Cos(m_AngleToEnterPortalInDegrees * Mathf.Deg2Rad)));
             if(Vector3.Dot(l_Portal.transform.forward, -m_Direction)>Mathf.Cos(m_AngleToEnterPortalInDegrees*Mathf.Deg2Rad))
                 Teleport(l_Portal);
         }
@@ -273,6 +280,7 @@ public class FPPlayerController : MonoBehaviour
 
     void Teleport(Portal _Portal)
     {
+        Debug.Log("Abra kadabra");
         Vector3 l_LocalPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(transform.position);
         Vector3 l_LocalDirection = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(transform.forward);
         Vector3 l_LocalDirectionMovement = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(m_Direction);
