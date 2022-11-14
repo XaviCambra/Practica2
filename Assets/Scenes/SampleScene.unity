@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,7 +372,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243037461}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6343032, z: 0.36012506}
@@ -1035,7 +1035,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902493479}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6343032, z: 0.36012506}
@@ -1214,7 +1214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995077036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.224, y: -0.661, z: 1.68}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 771953549}
@@ -1994,7 +1994,8 @@ MonoBehaviour:
   m_RunKeyCode: 304
   m_DebugLockAngleKeyCode: 105
   m_DebugLockKeyCode: 111
-  m_AttachObjectKeyCode: 101
+  m_ReloadKeyCode: 0
+  m_AttachObjectKeyCode: 0
   m_MaxShootDistance: 50
   m_ShootingLayerMask:
     serializedVersion: 2
@@ -2004,25 +2005,15 @@ MonoBehaviour:
   m_RunMovementFOV: 80
   m_VerticalSpeed: 0
   m_JumpSpeed: 4
-  m_OffsetPortal: 2
+  m_OffsetPortal: 0.4
   m_Direction: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-  m_AngleToEnterPortalInDegrees: 60
-  m_AttachingPosition: {fileID: 995077037}
-  m_AttachingObjectSpeed: 20
-=======
   m_AttachingPosition: {fileID: 995077037}
   m_AttachingObjectSpeed: 3
->>>>>>> Stashed changes
   m_MaxDistanceToAttachObject: 10
   m_AttachingObjectLayerMask:
     serializedVersion: 2
     m_Bits: 1
-<<<<<<< Updated upstream
-  m_AttachedObjectThrowForce: 225
-=======
   m_AttachedObjectThrowForce: 75
->>>>>>> Stashed changes
 --- !u!143 &1300701556
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2255,10 +2246,6 @@ PrefabInstance:
       propertyPath: m_MirrorPortal
       value: 
       objectReference: {fileID: 1506314578}
-    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
-      propertyPath: m_OffsetNearPlane
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!1 &1673089741
@@ -3305,6 +3292,10 @@ PrefabInstance:
       propertyPath: m_MirrorPortal
       value: 
       objectReference: {fileID: 1876486131}
+    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_OffsetNearPlane
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!1001 &1994992761
