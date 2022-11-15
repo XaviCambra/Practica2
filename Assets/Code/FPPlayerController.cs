@@ -261,30 +261,14 @@ public class FPPlayerController : MonoBehaviour
 
     void ThrowAttachedObject(float Force)
     {
-        if (m_ObjectAttached != null)
-        {
-            m_ObjectAttached.transform.SetParent(null);
-            m_ObjectAttached.isKinematic = false;
-            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
-            m_ObjectAttached.GetComponent<Companion>().SetAttached(false);
-            m_ObjectAttached = null;
-        }
-        if (m_ObjectAttached != null)
-        {
-            m_ObjectAttached.transform.SetParent(null);
-            m_ObjectAttached.isKinematic = false;
-            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
-            m_ObjectAttached.GetComponent<Turret>().SetAttached(false);
-            m_ObjectAttached = null;
-        }
-        if (m_ObjectAttached != null)
-        {
-            m_ObjectAttached.transform.SetParent(null);
-            m_ObjectAttached.isKinematic = false;
-            m_ObjectAttached.AddForce(m_PitchController.forward * Force);
-            m_ObjectAttached.GetComponent<RefractionCube>().SetAttached(false);
-            m_ObjectAttached = null;
-        }
+        if (m_ObjectAttached == null)
+            return;
+
+        m_ObjectAttached.transform.SetParent(null);
+        m_ObjectAttached.isKinematic = false;
+        m_ObjectAttached.AddForce(m_PitchController.forward * Force);
+        m_ObjectAttached.GetComponent<Pickable>().SetAttached(false);
+        m_ObjectAttached = null;
     }
 
     void UpdateAttachedObject()
@@ -319,33 +303,11 @@ public class FPPlayerController : MonoBehaviour
         RaycastHit l_Raycasthit;
         if (Physics.Raycast(l_Ray, out l_Raycasthit, m_MaxDistanceToAttachObject, m_AttachingObjectLayerMask.value))
         {
-            if (l_Raycasthit.collider.tag == "CompanionCube")
-            {
-                m_AttachingObject = true;
-                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
-                m_ObjectAttached.GetComponent<Companion>().SetAttached(true);
-                m_ObjectAttached.isKinematic = true;
-                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
-
-            }
-            if (l_Raycasthit.collider.tag == "turret")
-            {
-                m_AttachingObject = true;
-                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
-                m_ObjectAttached.GetComponent<Turret>().SetAttached(true);
-                m_ObjectAttached.isKinematic = true;
-                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
-
-            }
-            if (l_Raycasthit.collider.tag == "RefractionCube")
-            {
-                m_AttachingObject = true;
-                m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
-                m_ObjectAttached.GetComponent<RefractionCube>().SetAttached(true);
-                m_ObjectAttached.isKinematic = true;
-                m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
-
-            }
+            m_AttachingObject = true;
+            m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+            m_ObjectAttached.GetComponent<Pickable>().SetAttached(true);
+            m_ObjectAttached.isKinematic = true;
+            m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
         }
     }
 
@@ -353,24 +315,8 @@ public class FPPlayerController : MonoBehaviour
     {
         return m_Life;
     }
-
-    public float GetShield()
-    {
-        return m_Shield;
-    }
-
-    public void AddLife(float Life)
-    {
-        m_Life = Mathf.Clamp(m_Life + Life, 0.0f, 1.0f);
-    }
-
-    public void AddShield(float shield)
-    {
-        m_Shield = Mathf.Clamp(m_Shield + shield, 0.0f, 1.0f);
-    }
-
-    public void RestartGame()
-    {
+   public void RestartGame()
+   {
         m_Life = 1.0f;
         m_CharacterController.enabled = false;
         transform.position = m_StartPosition;
@@ -378,22 +324,9 @@ public class FPPlayerController : MonoBehaviour
         m_CharacterController.enabled = true;
     }
 
-    public void Hit(float life)
+    public bool Hit()
     {
-        if (life * 0.7f <= m_Shield)
-        {
-            m_Shield = m_Shield - life * 0.7f;
-            m_Life = m_Life - life * 0.3f;
-        }
-        else
-        {
-            m_Life -= (life - m_Shield);
-            m_Shield = 0;
-        }
-        //m_LifeBarImage.fillAmount = m_Life / 100;
-        //m_LifeText.text = m_Life.ToString();
-        //m_ShieldBarImage.fillAmount = m_Shield / 100;
-        //m_ShieldText.text = m_Shield.ToString();
+        return true;
     }
 
     

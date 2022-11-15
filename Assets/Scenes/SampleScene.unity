@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2449213654423280353, guid: 9eddf26057390cb40a4f054ef935c559, type: 3}
+      propertyPath: m_OffsetTeleportPortal
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eddf26057390cb40a4f054ef935c559, type: 3}
 --- !u!4 &86484447 stripped
@@ -834,7 +838,7 @@ Transform:
   m_GameObject: {fileID: 676169358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 96426854}
   m_RootOrder: 5
@@ -896,6 +900,18 @@ MonoBehaviour:
     m_Bits: 1
   m_MaxLaserDistance: 250
   m_AliveAngleInDegrees: 30
+--- !u!114 &697960884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697960879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19ed5407a3778c4f9eb440b15438625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1467,7 @@ GameObject:
   - component: {fileID: 1132700051}
   m_Layer: 0
   m_Name: Laser
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1828,14 +1844,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249340671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0029556183, y: 0.008195636, z: 0.0005195287, w: 0.9999619}
   m_LocalPosition: {x: -0.65, y: 0.64, z: 0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1258711782}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.339, y: 0.939, z: 0.057}
 --- !u!1001 &1256633999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2013,7 +2029,7 @@ MonoBehaviour:
   m_AttachingObjectLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_AttachedObjectThrowForce: 75
+  m_AttachedObjectThrowForce: 250
 --- !u!143 &1300701556
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2246,6 +2262,10 @@ PrefabInstance:
       propertyPath: m_MirrorPortal
       value: 
       objectReference: {fileID: 1506314578}
+    - target: {fileID: 4726481822788095093, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
+      propertyPath: m_OffsetNearPlane
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02fc6be24bd28f41a5d9a4bce11cf90, type: 3}
 --- !u!1 &1673089741
@@ -2260,7 +2280,7 @@ GameObject:
   - component: {fileID: 1673089742}
   m_Layer: 0
   m_Name: Laser
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3419,6 +3439,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0064728, z: 0.876397}
   m_Center: {x: 0, y: -0.015126586, z: 0.037430346}
+--- !u!114 &1994992767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994992762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19ed5407a3778c4f9eb440b15438625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2034419101
 GameObject:
   m_ObjectHideFlags: 0

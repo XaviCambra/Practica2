@@ -10,6 +10,7 @@ TagManager:
   - CompanionCube
   - turret
   - RefractionCube
+  - Laser
   layers:
   - Default
   - TransparentFX

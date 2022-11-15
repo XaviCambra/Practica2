@@ -4,24 +4,20 @@ using UnityEngine;
 
 public class Companion : MonoBehaviour
 {
-    bool m_IsAttached = false;
     Rigidbody m_Rigidbody;
     public float m_OffsetTeleportPortal = 1.5f;
     Portal m_ExitPortal = null;
+    Pickable pickable;
 
     private void Start()
     {
         m_Rigidbody=GetComponent<Rigidbody>();
-    }
-
-    public void SetAttached(bool Attached)
-    {
-        m_IsAttached = Attached;
+        pickable=GetComponent<Pickable>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Portal"&& !m_IsAttached)
+        if (other.tag == "Portal"&& !pickable.GetAttached())
         {
             Portal l_Portal = other.GetComponent<Portal>();
             if(l_Portal != m_ExitPortal)

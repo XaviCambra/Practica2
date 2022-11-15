@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
     public LayerMask m_LaserLayerMask;
     public float m_MaxLaserDistance = 250.0f;
     public float m_AliveAngleInDegrees = 30.0f;
-    bool m_IsAttached = false;
+    FPPlayerController m_PlayerController;
 
     Rigidbody m_Rigidbody;
 
@@ -29,6 +29,10 @@ public class Turret : MonoBehaviour
                 l_LaserDistance = Vector3.Distance(m_Laser.transform.position, l_RayCastHit.point);
                 if (l_RayCastHit.collider.tag == "RefractionCube")
                     l_RayCastHit.collider.GetComponent<RefractionCube>().CreateRefraction();
+                if(l_RayCastHit.collider.tag == "Player")
+                {
+                    m_PlayerController.Hit();
+                }
             }
                
             m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
@@ -37,9 +41,8 @@ public class Turret : MonoBehaviour
        
     }
 
-    public void SetAttached(bool Attached)
-    {
-        m_IsAttached = Attached;
-    }
+    
+
+
     //hacer los set actives para las diferentes ocasiones
 }
