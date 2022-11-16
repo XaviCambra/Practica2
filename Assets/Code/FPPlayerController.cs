@@ -266,13 +266,13 @@ public class FPPlayerController : MonoBehaviour
             if(Vector3.Dot(l_Portal.transform.forward, -m_Direction) > Mathf.Cos(m_AngleToEnterPortalInDegrees * Mathf.Deg2Rad))
                 Teleport(l_Portal);
         }
-        else if (other.tag == "DeadZone" || other.tag == "Laser")
+        else if (other.tag == "DeadZone")
         {
             Kill();
         }
     }
 
-    void Kill()
+    public void Kill()
     {
         RestartGame();
     }
@@ -348,16 +348,10 @@ public class FPPlayerController : MonoBehaviour
 
    public void RestartGame()
    {
+        Debug.Log("pal lobby");
         m_CharacterController.enabled = false;
         transform.position = m_StartPosition;
         transform.rotation = m_StartRotation;
         m_CharacterController.enabled = true;
     }
-
-    public bool Hit()
-    {
-        return true;
-    }
-
-    
 }

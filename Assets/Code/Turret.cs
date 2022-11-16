@@ -6,7 +6,8 @@ public class Turret : MonoBehaviour
     public LayerMask m_LaserLayerMask;
     public float m_MaxLaserDistance = 250.0f;
     public float m_AliveAngleInDegrees = 30.0f;
-    FPPlayerController m_PlayerController;
+    public FPPlayerController m_PlayerController;
+    bool m_LaserOff = false;
 
     Rigidbody m_Rigidbody;
 
@@ -19,6 +20,7 @@ public class Turret : MonoBehaviour
     {
         bool l_LaserAlive=Vector3.Dot(transform.up,Vector3.up)>Mathf.Cos(m_AliveAngleInDegrees*Mathf.Deg2Rad);
         m_Laser.gameObject.SetActive(l_LaserAlive);
+        
         if (l_LaserAlive)
         {
             Ray l_Ray = new Ray(m_Laser.transform.position, m_Laser.transform.forward);
@@ -31,17 +33,23 @@ public class Turret : MonoBehaviour
                     l_RayCastHit.collider.GetComponent<RefractionCube>().CreateRefraction();
                 if(l_RayCastHit.collider.tag == "Player")
                 {
-                    m_PlayerController.Hit();
+                    m_PlayerController.Kill();
+                }
+                else if (l_RayCastHit.collider.tag == "turret")
+                {
+                    l_RayCastHit.collider.gameObject.SetActive(false);
                 }
             }
                
             m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
-            //m_Laser.gameObject.SetActive(Vector3.Dot(transform.up, Vector3.up)>Mathf.Cos(m_AliveAngleInDegrees*Mathf.Deg2Rad));
         }
        
     }
 
-    
+    public void LaserOff()
+    {
+        m_LaserOff = true;
+    }
 
 
     //hacer los set actives para las diferentes ocasiones
