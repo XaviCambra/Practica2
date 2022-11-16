@@ -56,7 +56,6 @@ public class FPPlayerController : MonoBehaviour
     bool m_OnGround = true;
 
     public float m_JumpSpeed = 10.0f;
-    bool m_Shooting = false;
 
     public float m_OffsetPortal = 1.5f;
 

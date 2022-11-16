@@ -7,7 +7,6 @@ public class Turret : MonoBehaviour
     public float m_MaxLaserDistance = 250.0f;
     public float m_AliveAngleInDegrees = 30.0f;
     public FPPlayerController m_PlayerController;
-    bool m_LaserOff = false;
 
     Rigidbody m_Rigidbody;
 
