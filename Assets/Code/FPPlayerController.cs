@@ -41,8 +41,6 @@ public class FPPlayerController : MonoBehaviour
     public float m_MaxShootDistance = 50.0f;
     public LayerMask m_ShootingLayerMask;
 
-    float m_Life;
-    float m_Shield;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
 
@@ -268,8 +266,16 @@ public class FPPlayerController : MonoBehaviour
             if(Vector3.Dot(l_Portal.transform.forward, -m_Direction) > Mathf.Cos(m_AngleToEnterPortalInDegrees * Mathf.Deg2Rad))
                 Teleport(l_Portal);
         }
+        else if (other.tag == "DeadZone" || other.tag == "Laser")
+        {
+            Kill();
+        }
     }
 
+    void Kill()
+    {
+        RestartGame();
+    }
     void Teleport(Portal _Portal)
     {
         Vector3 l_LocalPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(transform.position);
@@ -339,13 +345,9 @@ public class FPPlayerController : MonoBehaviour
 
     }
 
-    public float GetLife()
-    {
-        return m_Life;
-    }
+
    public void RestartGame()
    {
-        m_Life = 1.0f;
         m_CharacterController.enabled = false;
         transform.position = m_StartPosition;
         transform.rotation = m_StartRotation;
