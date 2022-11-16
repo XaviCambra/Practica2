@@ -20,7 +20,7 @@ public class Companion : MonoBehaviour
         if (other.tag == "Portal"&& !pickable.GetAttached())
         {
             Portal l_Portal = other.GetComponent<Portal>();
-            if(l_Portal != m_ExitPortal)
+            if(m_ExitPortal == null)
             {
                 Teleport(l_Portal);
             }
@@ -42,8 +42,6 @@ public class Companion : MonoBehaviour
     {
         Vector3 l_LocalPosition = _Portal.m_OtherPortalTransform.InverseTransformPoint(transform.position);
         Vector3 l_LocalDirection = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(transform.forward);
-
-        Vector3 l_LocalVelocity = _Portal.m_OtherPortalTransform.transform.InverseTransformDirection(m_Rigidbody.velocity);
 
         Vector3 l_WorldVelocity = _Portal.m_MirrorPortal.transform.TransformDirection(m_Rigidbody.velocity);
 

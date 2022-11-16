@@ -46,6 +46,9 @@ public class FPPlayerController : MonoBehaviour
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
 
+    public Sprite[] m_activePortalsImages;
+    public Image m_hudPortalsImage;
+
     [Header("Camera")]
     public Camera m_Camera;
     public float m_NormalMovementFOV = 60.0f;
@@ -232,6 +235,29 @@ public class FPPlayerController : MonoBehaviour
         {
             _Portal.gameObject.SetActive(false);
         }
+
+        if (m_BluePortal.gameObject.activeSelf)
+        {
+            if (m_OrangePortal.gameObject.activeSelf)
+            {
+                m_hudPortalsImage.sprite = m_activePortalsImages[0];
+            }
+            else
+            {
+                m_hudPortalsImage.sprite = m_activePortalsImages[1];
+            }
+        }
+        else
+        {
+            if (m_OrangePortal.gameObject.activeSelf)
+            {
+                m_hudPortalsImage.sprite = m_activePortalsImages[2];
+            }
+            else
+            {
+                m_hudPortalsImage.sprite = m_activePortalsImages[3];
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -263,6 +289,7 @@ public class FPPlayerController : MonoBehaviour
     {
         if (m_ObjectAttached == null)
             return;
+
 
         m_ObjectAttached.transform.SetParent(null);
         m_ObjectAttached.isKinematic = false;
@@ -304,11 +331,12 @@ public class FPPlayerController : MonoBehaviour
         if (Physics.Raycast(l_Ray, out l_Raycasthit, m_MaxDistanceToAttachObject, m_AttachingObjectLayerMask.value))
         {
             m_AttachingObject = true;
-            m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>();
+            m_ObjectAttached = l_Raycasthit.collider.GetComponent<Rigidbody>() ? l_Raycasthit.collider.GetComponent<Rigidbody>() : m_ObjectAttached = null;
             m_ObjectAttached.GetComponent<Pickable>().SetAttached(true);
             m_ObjectAttached.isKinematic = true;
             m_AttachingObjectStartRotation = l_Raycasthit.collider.transform.rotation;
         }
+
     }
 
     public float GetLife()
