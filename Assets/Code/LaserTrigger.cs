@@ -6,7 +6,6 @@ public class LaserTrigger : MonoBehaviour
 {
    public DoorAnimationController doorController;
 
-
     public void ActivateDoor()
     {
             doorController.ActivateDoors(true);
