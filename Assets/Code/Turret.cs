@@ -20,7 +20,6 @@ public class Turret : MonoBehaviour
     {
         bool l_LaserAlive=Vector3.Dot(transform.up,Vector3.up)>Mathf.Cos(m_AliveAngleInDegrees*Mathf.Deg2Rad);
         m_Laser.gameObject.SetActive(l_LaserAlive);
-        
         if (l_LaserAlive)
         {
             Ray l_Ray = new Ray(m_Laser.transform.position, m_Laser.transform.forward);
@@ -39,18 +38,15 @@ public class Turret : MonoBehaviour
                 {
                     l_RayCastHit.collider.gameObject.SetActive(false);
                 }
+                else if(l_RayCastHit.collider.tag == "LaserTrigger")
+                {
+                    Debug.Log("me siento atacado");
+                    l_RayCastHit.collider.GetComponent<LaserTrigger>().ActivateDoor();
+                }
             }
                
             m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
         }
        
     }
-
-    public void LaserOff()
-    {
-        m_LaserOff = true;
-    }
-
-
-    //hacer los set actives para las diferentes ocasiones
 }

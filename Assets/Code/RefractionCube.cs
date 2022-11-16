@@ -32,6 +32,15 @@ public class RefractionCube : MonoBehaviour
             l_LaserDistance = Vector3.Distance(m_Laser.transform.position, l_RayCastHit.point);
             if (l_RayCastHit.collider.tag == "RefractionCube")
                 l_RayCastHit.collider.GetComponent<RefractionCube>().CreateRefraction();
+            else if (l_RayCastHit.collider.tag == "turret")
+            {
+                l_RayCastHit.collider.gameObject.SetActive(false);
+            }
+            else if (l_RayCastHit.collider.tag == "LaserTrigger")
+            {
+                Debug.Log("me siento atacado");
+                l_RayCastHit.collider.GetComponent<LaserTrigger>().ActivateDoor();
+            }
         }
         m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
     }
