@@ -31,7 +31,7 @@ public class Turret : MonoBehaviour
                     l_RayCastHit.collider.GetComponent<RefractionCube>().CreateRefraction();
                 if(l_RayCastHit.collider.tag == "Player")
                 {
-                    m_PlayerController.Kill();
+                    m_PlayerController.RestartGame();
                 }
                 else if (l_RayCastHit.collider.tag == "turret")
                 {

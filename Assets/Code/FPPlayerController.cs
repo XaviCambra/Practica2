@@ -267,13 +267,8 @@ public class FPPlayerController : MonoBehaviour
         }
         else if (other.tag == "DeadZone")
         {
-            Kill();
+            RestartGame();
         }
-    }
-
-    public void Kill()
-    {
-        RestartGame();
     }
     void Teleport(Portal _Portal)
     {
