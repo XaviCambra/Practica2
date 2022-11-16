@@ -44,4 +44,12 @@ public class RefractionCube : MonoBehaviour
         }
         m_Laser.SetPosition(1, new Vector3(0.0f, 0.0f, l_LaserDistance));
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "DeadZone")
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

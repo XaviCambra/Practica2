@@ -48,4 +48,12 @@ public class Turret : MonoBehaviour
         }
        
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "DeadZone")
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

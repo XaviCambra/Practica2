@@ -26,6 +26,10 @@ public class Companion : MonoBehaviour
             }
             
         }
+        else if (other.tag == "DeadZone")
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)
